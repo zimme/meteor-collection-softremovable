@@ -12,7 +12,7 @@ defaults =
 behaviour = (options = {}) ->
 
   {removed, removedAt, removedBy, restoredAt, restoredBy} =
-    _.defaults options, defaults
+    _.defaults options, @options, defaults
 
   if ss?
     SimpleSchema = ss.SimpleSchema
@@ -75,7 +75,7 @@ behaviour = (options = {}) ->
 
       addC2Def def if c2?
 
-    @attachSchema new SimpleSchema definition
+    @collection.attachSchema new SimpleSchema definition
 
   beforeFindHook = (userId = '0', selector = {}, options = {}) ->
     isSelectorId = _.isString(selector) or '_id' of selector
@@ -86,10 +86,12 @@ behaviour = (options = {}) ->
     @args[0] = selector
     return
 
-  @before.find beforeFindHook
-  @before.findOne beforeFindHook
+  @collection.before.find beforeFindHook
+  @collection.before.findOne beforeFindHook
 
-  @before.update (userId = '0', doc, fieldNames, modifier, options) ->
+  @collection.before.update (userId = '0', doc, fieldNames, modifier,
+    options) ->
+
     $set = modifier.$set ?= {}
     $unset = modifier.$unset ?= {}
 
@@ -129,14 +131,14 @@ behaviour = (options = {}) ->
       if restoredBy
         $set[restoredBy] = userId
 
-  isLocalCollection = @_connection is null
+  isLocalCollection = @collection._connection is null
 
   throwIfSelectorIsntId = (selector, method) ->
     unless _.isString(selector) or '_id' of selector
       throw new Meteor.Error 403, 'Not permitted. Untrusted code may only ' +
         "#{method} documents by ID."
 
-  @softRemove = (selector, callback) ->
+  @collection.softRemove = (selector, callback) ->
     return 0 unless selector
 
     if Meteor.isClient and not isLocalCollection
@@ -158,7 +160,7 @@ behaviour = (options = {}) ->
     else
       ret
 
-  @restore = (selector, callback) ->
+  @collection.restore = (selector, callback) ->
     return 0 unless selector
 
     if Meteor.isClient and not isLocalCollection
