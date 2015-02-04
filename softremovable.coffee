@@ -131,6 +131,12 @@ behaviour = (options = {}) ->
       if restoredBy
         $set[restoredBy] = userId
 
+    if _.isEmpty $set
+      delete modifier.$set
+
+    if _.isEmpty $unset
+      delete modifier.$unset
+
   isLocalCollection = @collection._connection is null
 
   throwIfSelectorIsntId = (selector, method) ->
