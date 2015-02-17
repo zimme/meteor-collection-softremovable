@@ -1,13 +1,20 @@
-# Collection-softremovable
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/zimme/meteor-collection-softremovable?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Code Climate](https://img.shields.io/codeclimate/github/zimme/meteor-collection-softremovable.svg?style=flat)](https://codeclimate.com/github/zimme/meteor-collection-softremovable)
+# Soft remove for collections
+[![Gitter](https://img.shields.io/badge/Gitter-Join_Chat-brightgreen.svg)]
+(https://gitter.im/zimme/meteor-collection-softremovable)
+[![Code Climate](https://img.shields.io/codeclimate/github/zimme/meteor-collection-softremovable.svg)]
+(https://codeclimate.com/github/zimme/meteor-collection-softremovable)
 
 Add soft remove to collections.
 
-This package uses aldeed:simple-schema, aldeed:collection2 and aldeed:autoform
+This package uses `aldeed:simple-schema`, `aldeed:collection2` and `aldeed:autoform`
 if they are available in the project.
 
-## Usage
+### Install
+```sh
+meteor add zimme:collection-softremovable
+```
+
+### Usage
 
 ```js
 Posts = new Mongo.Collection('posts');
@@ -37,11 +44,11 @@ Posts.find({removed: true});
 Posts.find({}, {removed: true});
 ```
 
-## Options
+### Options
 
 Available options are:
 
-`removed, removedAt, removedBy, restoredAt, restoredBy`
+`removed`, `removedAt`, `removedBy`, `restoredAt`, `restoredBy`
 
 Valid values are:
 
