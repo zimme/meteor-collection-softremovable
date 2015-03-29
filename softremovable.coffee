@@ -8,10 +8,11 @@ defaults =
   removedBy: 'removedBy'
   restoredAt: 'restoredAt'
   restoredBy: 'restoredBy'
+  systemId: '0'
 
 behaviour = (options = {}) ->
 
-  {removed, removedAt, removedBy, restoredAt, restoredBy} =
+  {removed, removedAt, removedBy, restoredAt, restoredBy, systemId} =
     _.defaults options, @options, defaults
 
   if ss?
@@ -46,7 +47,7 @@ behaviour = (options = {}) ->
 
       addAfDef def if af?
 
-    regEx = new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"
+    regEx = new RegExp "(#{SimpleSchema.RegEx.Id.source})|^#{systemId}$"
 
     if removedBy
       def = definition[removedBy] =
@@ -79,7 +80,7 @@ behaviour = (options = {}) ->
 
     @collection.attachSchema new SimpleSchema definition
 
-  beforeFindHook = (userId = '0', selector = {}, options = {}) ->
+  beforeFindHook = (userId = systemId, selector = {}, options = {}) ->
     isSelectorId = _.isString(selector) or '_id' of selector
     unless options.removed or isSelectorId or selector[removed]?
       selector[removed] =
@@ -91,7 +92,7 @@ behaviour = (options = {}) ->
   @collection.before.find beforeFindHook
   @collection.before.findOne beforeFindHook
 
-  @collection.before.update (userId = '0', doc, fieldNames, modifier,
+  @collection.before.update (userId = systemId, doc, fieldNames, modifier,
     options) ->
 
     $set = modifier.$set ?= {}
