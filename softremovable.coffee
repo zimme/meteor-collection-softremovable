@@ -46,10 +46,12 @@ behaviour = (options = {}) ->
 
       addAfDef def if af?
 
+    regEx = new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"
+
     if removedBy
       def = definition[removedBy] =
         optional: true
-        regEx: new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"
+        regEx: regEx
         type: String
 
       addC2Def def if c2?
@@ -68,7 +70,7 @@ behaviour = (options = {}) ->
     if restoredBy
       def = definition[restoredBy] =
         optional: true
-        regEx: new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"
+        regEx: regEx
         type: String
 
       addAfDef def if af?
