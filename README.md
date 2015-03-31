@@ -7,9 +7,6 @@
 
 Add soft remove to collections.
 
-This package attaches a schema to the collection if `aldeed:simple-schema`, `aldeed:collection2` and/or `aldeed:autoform`
-are used in the application.
-
 ### Install
 ```sh
 meteor add zimme:collection-softremovable
@@ -68,14 +65,19 @@ The following options can be used:
 
 * `removed`: Optional. Set to `'string'` to change the fields name.
   This field can't be omitted.
+
 * `removedAt`: Optional. Set to `'string'` to change the fields name.
   Set to `false` to omit field.
+
 * `removedBy`: Optional. Set to `'string'` to change the fields name.
   Set to `false` to omit field.
+
 * `restoredAt`: Optional. Set to `'string'` to change the fields name.
   Set to `false` to omit field.
+
 * `restoredBy`: Optional. Set to `'string'` to change the fields name.
   Set to `false` to omit field.
+
 * `systemId`: Optional. Set to `'string'` to change the id representing the
   system.
 
@@ -100,3 +102,6 @@ CollectionBehaviours.configure('softRemovable',{
 * Don't forget to publish the soft removed documents, if you need them on the
   client. A regular `.find()` in a publish function won't find soft removed
   documents. See the last usage example.
+
+* This package attaches a schema to the collection if `aldeed:simple-schema`,
+  `aldeed:collection2` and/or `aldeed:autoform` are used in the application.
