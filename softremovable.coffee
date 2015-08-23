@@ -72,6 +72,7 @@ behaviour = (options = {}) ->
   beforeFindHook = (userId = systemId, selector = {}, options = {}) ->
     isSelectorId = _.isString(selector) or '_id' of selector
     unless options.removed or isSelectorId or selector[removed]?
+      selector = _.clone selector
       selector[removed] =
         $exists: false
 
@@ -170,6 +171,7 @@ behaviour = (options = {}) ->
     $unset[removed] = true
 
     if Meteor.isServer or isLocalCollection
+      selector = _.clone selector
       selector[removed] = true
       ret = @update selector, modifier, multi: true, callback
 
