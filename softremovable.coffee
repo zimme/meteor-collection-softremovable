@@ -1,6 +1,6 @@
 af = Package['aldeed:autoform']
 c2 = Package['aldeed:collection2']
-ss = Package['aldeed:simple-schema']
+SimpleSchema = Package['aldeed:simple-schema']?.SimpleSchema
 
 defaults =
   removed: 'removed'
@@ -15,20 +15,12 @@ behaviour = (options = {}) ->
   {removed, removedAt, removedBy, restoredAt, restoredBy, systemId} =
     _.defaults options, @options, defaults
 
-  if ss?
-    SimpleSchema = ss.SimpleSchema
-
+  if c2?
     afDefinition = autoform:
       omit: true
 
     addAfDef = (definition) ->
       _.extend definition, afDefinition
-
-    c2Definition =
-      denyInsert: true
-
-    addC2Def = (definition) ->
-      _.extend definition, c2Definition
 
     definition = {}
 
@@ -40,10 +32,9 @@ behaviour = (options = {}) ->
 
     if removedAt
       def = definition[removedAt] =
+        denyInsert: true
         optional: true
         type: Date
-
-      addC2Def def if c2?
 
       addAfDef def if af?
 
@@ -51,32 +42,29 @@ behaviour = (options = {}) ->
 
     if removedBy
       def = definition[removedBy] =
+        denyInsert: true
         optional: true
         regEx: regEx
         type: String
-
-      addC2Def def if c2?
 
       addAfDef def if af?
 
     if restoredAt
       def = definition[restoredAt] =
+        denyInsert: true
         optional: true
         type: Date
 
       addAfDef def if af?
 
-      addC2Def def if c2?
-
     if restoredBy
       def = definition[restoredBy] =
+        denyInsert: true
         optional: true
         regEx: regEx
         type: String
 
       addAfDef def if af?
-
-      addC2Def def if c2?
 
     @collection.attachSchema new SimpleSchema definition
 
