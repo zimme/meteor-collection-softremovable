@@ -132,11 +132,6 @@ behaviour = (options = {}) ->
 
   isLocalCollection = @collection._connection is null
 
-  throwIfSelectorIsntId = (selector, method) ->
-    unless _.isString(selector) or '_id' of selector
-      throw new Meteor.Error 403, 'Not permitted. Untrusted code may only ' +
-        "#{method} documents by ID."
-
   @collection.softRemove = (selector, callback) ->
     return 0 unless selector
 
@@ -154,7 +149,8 @@ behaviour = (options = {}) ->
 
     catch error
       if error.reason.indexOf 'Not permitted.' isnt -1
-        throwIfSelectorIsntId selector, 'softRemove'
+        throw new Meteor.Error 403, 'Not permitted. Untrusted code may only ' +
+          "softRemove documents by ID."
 
     if ret is false
       0
@@ -180,7 +176,8 @@ behaviour = (options = {}) ->
 
     catch error
       if error.reason.indexOf 'Not permitted.' isnt -1
-        throwIfSelectorIsntId selector, 'restore'
+        throw new Meteor.Error 403, 'Not permitted. Untrusted code may only ' +
+          "restore documents by ID."
 
     if ret is false
       0
