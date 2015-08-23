@@ -140,7 +140,7 @@ behaviour = (options = {}) ->
   @collection.softRemove = (selector, callback) ->
     return 0 unless selector
 
-    if Meteor.isClient and not Meteor.isSimulation and not isLocalCollection
+    if Meteor.isClient and (not Meteor.isSimulation or not isLocalCollection)
       throwIfSelectorIsntId selector, 'softRemove'
 
     modifier =
@@ -162,7 +162,7 @@ behaviour = (options = {}) ->
   @collection.restore = (selector, callback) ->
     return 0 unless selector
 
-    if Meteor.isClient and not Meteor.isSimulation and not isLocalCollection
+    if Meteor.isClient and (not Meteor.isSimulation or not isLocalCollection)
       throwIfSelectorIsntId selector, 'restore'
 
     modifier =
