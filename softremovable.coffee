@@ -11,6 +11,7 @@ defaults =
   systemId: '0'
 
 behaviour = (options = {}) ->
+  check options, Object
 
   {removed, removedAt, removedBy, restoredAt, restoredBy, systemId} =
     _.defaults options, @options, defaults
