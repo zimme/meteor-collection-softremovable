@@ -140,19 +140,21 @@ behaviour = (options = {}) ->
   @collection.softRemove = (selector, callback) ->
     return 0 unless selector
 
-    if Meteor.isClient and (not Meteor.isSimulation or not isLocalCollection)
-      throwIfSelectorIsntId selector, 'softRemove'
-
     modifier =
       $set: $set = {}
 
     $set[removed] = true
 
-    if Meteor.isServer or isLocalCollection
-      ret = @update selector, modifier, multi: true, callback
+    try
+      if Meteor.isServer or isLocalCollection
+        ret = @update selector, modifier, multi: true, callback
 
-    else
-      ret = @update selector, modifier, callback
+      else
+        ret = @update selector, modifier, callback
+
+    catch error
+      if error.reason.indexOf 'Not permitted.' isnt -1
+        throwIfSelectorIsntId selector, 'softRemove'
 
     if ret is false
       0
@@ -162,21 +164,23 @@ behaviour = (options = {}) ->
   @collection.restore = (selector, callback) ->
     return 0 unless selector
 
-    if Meteor.isClient and (not Meteor.isSimulation or not isLocalCollection)
-      throwIfSelectorIsntId selector, 'restore'
-
     modifier =
       $unset: $unset = {}
 
     $unset[removed] = true
 
-    if Meteor.isServer or isLocalCollection
-      selector = _.clone selector
-      selector[removed] = true
-      ret = @update selector, modifier, multi: true, callback
+    try
+      if Meteor.isServer or isLocalCollection
+        selector = _.clone selector
+        selector[removed] = true
+        ret = @update selector, modifier, multi: true, callback
 
-    else
-      ret = @update selector, modifier, callback
+      else
+        ret = @update selector, modifier, callback
+
+    catch error
+      if error.reason.indexOf 'Not permitted.' isnt -1
+        throwIfSelectorIsntId selector, 'restore'
 
     if ret is false
       0
