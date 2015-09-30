@@ -103,5 +103,16 @@ CollectionBehaviours.configure('softRemovable',{
   client. A regular `.find()` in a publish function won't find soft removed
   documents. See the [Find](#find) usage examples.
 
+```
+if ( Meteor.isServer ) {
+  Meteor.publish("collection", function () {
+    return Collection.find({ user: this.userId }, { removed: true });
+    //                       Include removed in initial load ^
+  });
+}
+
+if ( Meteor.isClient ) { Meteor.subscribe("collection"); }
+```
+
 * This package attaches a schema to the collection if `aldeed:simple-schema`,
   `aldeed:collection2` and/or `aldeed:autoform` are used in the application.
