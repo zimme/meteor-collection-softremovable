@@ -59,24 +59,23 @@ Posts.find({removed: true});
 Posts.find({}, {removed: true});
 ```
 
-Note: you must publish removed documents for the client to find them. (see below)
-
 #### Publish
 
+For you to be able to find soft removed documents on the client you will need
+to explicitly publish those. The example code below belongs in server-side code.
+
 ```js
-if ( Meteor.isServer ) {
-  Meteor.publish('posts', function() {
-    return Posts.find({});
-  });
+Meteor.publish('posts', function() {
+  return Posts.find({});
+});
 
-  Meteor.publish('removedPosts', function() {
-    return Posts.find({removed: true});
-  });
+Meteor.publish('removedPosts', function() {
+  return Posts.find({removed: true});
+});
 
-  Meteor.publish('allPosts', function() {
-    return Posts.find({}, {removed: true});
-  });
-}
+Meteor.publish('allPosts', function() {
+  return Posts.find({}, {removed: true});
+});
 ```
 
 ### Options
@@ -118,10 +117,6 @@ CollectionBehaviours.configure('softRemovable',{
 ```
 
 ### Notes
-
-* Don't forget to publish the soft removed documents, if you need them on the
-  client. A regular `.find()` in a publish function won't find soft removed
-  documents. See the [Find](#find) and [Publish](#publish) usage examples.
 
 * This package attaches a schema to the collection if `aldeed:simple-schema`,
   `aldeed:collection2` and/or `aldeed:autoform` are used in the application.
