@@ -7,6 +7,10 @@
 
 Add soft remove to collections.
 
+## Difference to original package
+
+If _id is passed as a query, it will return removed items too. Take a look at the [Issue](https://github.com/zimme/meteor-collection-softremovable/issues/25).
+
 ### Install
 ```sh
 meteor add zimme:collection-softremovable
