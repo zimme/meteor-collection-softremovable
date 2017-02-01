@@ -7,10 +7,6 @@
 
 Add soft remove to collections.
 
-## Difference to original package
-
-If _id is passed as a query, it will return removed items too. Take a look at the [Issue](https://github.com/zimme/meteor-collection-softremovable/issues/25).
-
 ### Install
 ```sh
 meteor add zimme:collection-softremovable
@@ -55,6 +51,10 @@ Posts.remove({_id: 'BFpDzGuWG8extPwrE'});
 ```js
 // Find all posts except soft removed posts
 Posts.find({});
+
+// Find posts by _id except soft removed posts
+// Before version: 1.0.6-alpha.2 this would find soft removed posts too
+Posts.find({_id: 'BFpDzGuWG8extPwrE'});
 
 // Find only posts that have been soft removed
 Posts.find({removed: true});

@@ -2,7 +2,7 @@ Package.describe({
   git: 'https://github.com/lmachens/meteor-collection-softremovable.git',
   name: 'lmachens:collection-softremovable',
   summary: 'Add soft remove to collections',
-  version: '1.0.7'
+  version: '1.0.6-alpha.2'
 });
 
 Package.onUse(function(api) {
