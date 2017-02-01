@@ -1,6 +1,6 @@
 Package.describe({
-  git: 'https://github.com/lmachens/meteor-collection-softremovable.git',
-  name: 'lmachens:collection-softremovable',
+  git: 'https://github.com/zimme/meteor-collection-softremovable.git',
+  name: 'zimme:collection-softremovable',
   summary: 'Add soft remove to collections',
   version: '1.0.6-alpha.2'
 });
