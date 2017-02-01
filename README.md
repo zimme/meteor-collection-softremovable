@@ -52,6 +52,10 @@ Posts.remove({_id: 'BFpDzGuWG8extPwrE'});
 // Find all posts except soft removed posts
 Posts.find({});
 
+// Find posts by _id except soft removed posts
+// Before version: 1.0.6-alpha.2 this would find soft removed posts too
+Posts.find({_id: 'BFpDzGuWG8extPwrE'});
+
 // Find only posts that have been soft removed
 Posts.find({removed: true});
 
