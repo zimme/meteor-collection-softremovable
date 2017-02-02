@@ -71,6 +71,10 @@ behaviour = (options = {}) ->
 
   beforeFindHook = (userId = systemId, selector, options = {}) ->
     return if not selector
+    if _.isString selector
+      selector =
+        _id: selector
+
     unless options.removed or selector[removed]?
       selector = _.clone selector
       selector[removed] =
