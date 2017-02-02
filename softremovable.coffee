@@ -70,10 +70,14 @@ behaviour = (options = {}) ->
     @collection.attachSchema new SimpleSchema definition
 
   beforeFindHook = (userId = systemId, selector = {}, options = {}) ->
+    if typeof selector is 'string'
+      selector =
+        _id: selector
     unless options.removed or selector[removed]?
       selector[removed] =
         $exists: false
 
+    @args[0] = selector
     return
 
   @collection.before.find beforeFindHook
