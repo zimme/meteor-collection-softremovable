@@ -2,7 +2,7 @@ Package.describe({
   git: 'https://github.com/zimme/meteor-collection-softremovable.git',
   name: 'zimme:collection-softremovable',
   summary: 'Add soft remove to collections',
-  version: '1.0.6-alpha.2'
+  version: '1.0.6-alpha.3'
 });
 
 Package.onUse(function(api) {
