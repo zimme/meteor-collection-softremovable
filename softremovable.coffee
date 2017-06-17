@@ -75,7 +75,7 @@ behaviour = (options = {}) ->
       selector =
         _id: selector
 
-    unless options.removed or selector[removed]?
+    if Match.test(selector, Object) and not (options.removed or selector[removed]?)
       selector = _.clone selector
       selector[removed] =
         $exists: false
