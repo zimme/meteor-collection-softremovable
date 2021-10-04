@@ -1,5 +1,5 @@
 
-This package is a fork from https://github.com/zimme/meteor-collection-softremovable to support Autoform 6.3+ and converted code to JavaScript. Now it supports last Meteor releases (tested up to 2.4).
+This package is a fork from https://github.com/zimme/meteor-collection-softremovable to support Autoform 6.3+ and I converted code to JavaScript. Now it supports last Meteor releases (tested up to 2.4).
 
 # Soft remove for collections
 
