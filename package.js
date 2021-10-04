@@ -2,7 +2,7 @@ Package.describe({
   git: 'https://github.com/ricaragao/meteor-collection-softremovable.git',
   name: 'raragao:collection-softremovable',
   summary: 'Add soft remove to collections',
-  version: '1.0.7',
+  version: '1.0.8',
   documentation: 'README.md',
 });
 

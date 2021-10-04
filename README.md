@@ -7,8 +7,10 @@ Add soft remove to collections.
 
 ### Install
 ```sh
-meteor add zimme:collection-softremovable
+meteor add raragao:collection-softremovable
 ```
+
+Remember you need remove zimme:collection-softremovable before
 
 ### Usage
 
