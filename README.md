@@ -10,7 +10,7 @@ Add soft remove to collections.
 meteor add raragao:collection-softremovable
 ```
 
-Remember you need remove zimme:collection-softremovable before
+Remember you need to remove zimme:collection-softremovable before
 
 ### Usage
 
