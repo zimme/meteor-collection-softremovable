@@ -1,7 +1,5 @@
-[![Gitter](https://img.shields.io/badge/gitter-join_chat-brightgreen.svg)]
-(https://gitter.im/zimme/meteor-collection-softremovable)
-[![Code Climate](https://img.shields.io/codeclimate/github/zimme/meteor-collection-softremovable.svg)]
-(https://codeclimate.com/github/zimme/meteor-collection-softremovable)
+
+This package is a fork from https://github.com/zimme/meteor-collection-softremovable to support Autoform 6.3+ and converted code to JavaScript. Now it supports last Meteor releases (tested up to 2.4).
 
 # Soft remove for collections
 

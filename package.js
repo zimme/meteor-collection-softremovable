@@ -1,31 +1,33 @@
 Package.describe({
-  git: 'https://github.com/zimme/meteor-collection-softremovable.git',
-  name: 'zimme:collection-softremovable',
+  git: 'https://github.com/ricaragao/meteor-collection-softremovable.git',
+  name: 'raragao:collection-softremovable',
   summary: 'Add soft remove to collections',
-  version: '1.0.6-beta.2'
+  version: '1.0.7'
 });
 
-Package.onUse(function(api) {
-  api.versionsFrom('1.0');
+Package.onUse(function (api) {
+  api.versionsFrom('1.8');
+
+  api.use('ecmascript');
 
   api.use([
     'check',
-    'coffeescript',
-    'underscore'
+    'underscore',
   ]);
 
   api.use([
-    'matb33:collection-hooks@0.9.0-rc.1',
-    'zimme:collection-behaviours@1.0.3'
+    'matb33:collection-hooks@1.1.0',
+    'zimme:collection-behaviours@1.1.2'
   ]);
 
   api.use([
-    'aldeed:autoform@4.0.0 || 5.0.0',
-    'aldeed:collection2@2.0.0',
-    'aldeed:simple-schema@1.0.3'
-  ], ['client', 'server'], {weak: true});
+    'aldeed:autoform@6.3.0 || 7.0.0',
+    'aldeed:collection2@2.0.0 || 3.0.0',
+  ], ['client', 'server'], { weak: true });
 
   api.imply('zimme:collection-behaviours');
 
-  api.addFiles('softremovable.coffee');
+  api.mainModule('softremovable.js');
+
 });
+
