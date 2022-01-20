@@ -1,7 +1,6 @@
 import SimpleSchema from "simpl-schema";
 const af = Package['aldeed:autoform'];
 const c2 = Package['aldeed:collection2'];
-// const SimpleSchema = Package['aldeed:simple-schema'] != null ? Package['aldeed:simple-schema'].SimpleSchema : undefined;
 SimpleSchema.extendOptions(['autoform']);
 
 const defaults = {
@@ -28,19 +27,19 @@ const behaviour = function (options) {
       }
     };
 
-    const addAfDef = definition => definition; //_.extend(definition, afDefinition);
+    const addAfDef = definition => _.extend(definition, afDefinition);
 
     const definition = {};
 
-    let def = (definition[removed] = {
+    let def = (definition["removed"] = {
       optional: true,
-      type: Boolean 
+      type: Boolean
     });
 
     if (af != null) { addAfDef(def); }
 
     if (removedAt) {
-      def = (definition[removedAt] = {
+      def = (definition["removedAt"] = {
         // denyInsert: true,
         optional: true,
         type: Date
@@ -49,11 +48,11 @@ const behaviour = function (options) {
       if (af != null) { addAfDef(def); }
     }
 
-    
+
     const regEx = new RegExp(`(${SimpleSchema.RegEx.Id.source})|^${systemId}$`);
 
     if (removedBy) {
-      def = (definition[removedBy] = {
+      def = (definition["removedBy"] = {
         // denyInsert: true,
         optional: true,
         regEx,
@@ -64,7 +63,7 @@ const behaviour = function (options) {
     }
 
     if (restoredAt) {
-      def = (definition[restoredAt] = {
+      def = (definition["restoredAt"] = {
         // denyInsert: true,
         optional: true,
         type: Date
@@ -74,7 +73,7 @@ const behaviour = function (options) {
     }
 
     if (restoredBy) {
-      def = (definition[restoredBy] = {
+      def = (definition["restoredBy"] = {
         // denyInsert: true,
         optional: true,
         regEx,
@@ -95,10 +94,8 @@ const behaviour = function (options) {
         { _id: selector };
     }
 
-    if (Match.test(selector, Object) && !(options.removed || (selector[removed] != null))) {
-      selector = _.clone(selector);
-      selector[removed] =
-        { $exists: false };
+    if (Match.test(selector, Object) && !(options.removed || (selector["removed"] != null))) {
+      selector["removed"] = { "$exists": false };
     }
 
     this.args[0] = selector;
@@ -107,58 +104,57 @@ const behaviour = function (options) {
   this.collection.before.find(beforeFindHook);
   this.collection.before.findOne(beforeFindHook);
 
-  this.collection.before.update(function (userId, doc, fieldNames, modifier,
-    options) {
+  this.collection.before.update(function (userId, doc, fieldNames, modifier, options) {
 
     if (userId == null) { userId = systemId; }
     const $set = modifier.$set != null ? modifier.$set : (modifier.$set = {});
     const $unset = modifier.$unset != null ? modifier.$unset : (modifier.$unset = {});
 
-    if ($set[removed] && (doc[removed] != null)) {
+    if ($set["removed"] && (doc["removed"] != null)) {
       return false;
     }
 
-    if ($unset[removed] && (doc[removed] == null)) {
+    if ($unset["removed"] && (doc["removed"] == null)) {
       return false;
     }
 
-    if ($set[removed] && (doc[removed] == null)) {
-      $set[removed] = true;
+    if ($set["removed"] && (doc["removed"] == null)) {
+      $set["removed"] = true;
 
       if (removedAt) {
-        $set[removedAt] = new Date;
+        $set["removedAt"] = new Date;
       }
 
       if (removedBy) {
-        $set[removedBy] = userId;
+        $set["removedBy"] = userId;
       }
 
       if (restoredAt) {
-        $unset[restoredAt] = true;
+        $unset["restoredAt"] = true;
       }
 
       if (restoredBy) {
-        $unset[restoredBy] = true;
+        $unset["restoredBy"] = true;
       }
     }
 
-    if ($unset[removed] && (doc[removed] != null)) {
-      $unset[removed] = true;
+    if ($unset["removed"] && (doc["removed"] != null)) {
+      $unset["removed"] = true;
 
       if (removedAt) {
-        $unset[removedAt] = true;
+        $unset["removedAt"] = true;
       }
 
       if (removedBy) {
-        $unset[removedBy] = true;
+        $unset["removedBy"] = true;
       }
 
       if (restoredAt) {
-        $set[restoredAt] = new Date;
+        $set["restoredAt"] = new Date;
       }
 
       if (restoredBy) {
-        $set[restoredBy] = userId;
+        $set["restoredBy"] = userId;
       }
     }
 
@@ -180,7 +176,7 @@ const behaviour = function (options) {
     const modifier =
       { $set: ($set = {}) };
 
-    $set[removed] = true;
+    $set["removed"] = true;
 
     try {
       if (Meteor.isServer || isLocalCollection) {
@@ -212,12 +208,12 @@ const behaviour = function (options) {
     const modifier =
       { $unset: ($unset = {}) };
 
-    $unset[removed] = true;
+    $unset["removed"] = true;
 
     try {
       if (Meteor.isServer || isLocalCollection) {
         selector = _.clone(selector);
-        selector[removed] = true;
+        selector["removed"] = true;
         ret = this.update(selector, modifier, { multi: true }, callback);
 
       } else {
